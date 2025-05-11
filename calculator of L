@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Whale Distance Calculator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      padding: 40px;
+      background-color: #f0f8ff;
+    }
+
+    .calculator {
+      background: #e0f7fa;
+      padding: 25px;
+      border-radius: 10px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #004d40;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .output {
+      margin-top: 20px;
+      font-size: 18px;
+      text-align: center;
+      color: #00796b;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<div class="calculator">
+  <h2>Whale Distance Calculator</h2>
+
+  <label for="depth">Depth of Sea (H in meters):</label>
+  <input type="number" id="depth" placeholder="e.g. 3000">
+
+  <label for="delta">Time Difference (Δ in seconds):</label>
+  <input type="number" id="delta" placeholder="e.g. 2.5" step="0.01">
+
+  <label for="speed">Speed of Sound in Water (C in m/s):</label>
+  <input type="number" id="speed" placeholder="e.g. 1500">
+
+  <div class="output" id="result">Distance L = ?</div>
+</div>
+
+<script>
+  const depthInput = document.getElementById('depth');
+  const deltaInput = document.getElementById('delta');
+  const speedInput = document.getElementById('speed');
+  const resultDiv = document.getElementById('result');
+
+  function calculateDistance() {
+    const H = parseFloat(depthInput.value);
+    const delta = parseFloat(deltaInput.value);
+    const C = parseFloat(speedInput.value);
+
+    if (!isNaN(H) && !isNaN(delta) && !isNaN(C) && delta !== 0) {
+      const L = (2 * H * H) / (delta * C) - (delta * C) / 2;
+      resultDiv.textContent = `Distance L = ${L.toFixed(2)} meters`;
+    } else {
+      resultDiv.textContent = "Distance L = ?";
+    }
+  }
+
+  depthInput.addEventListener('input', calculateDistance);
+  deltaInput.addEventListener('input', calculateDistance);
+  speedInput.addEventListener('input', calculateDistance);
+</script>
+
+</body>
+</html>
